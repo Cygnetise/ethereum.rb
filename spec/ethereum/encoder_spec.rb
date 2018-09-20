@@ -57,6 +57,11 @@ describe Ethereum::Encoder do
     specify { expect("bytes32").to encode_and_decode("dave").to(expected) }
   end
 
+  context "bytes16" do
+    let (:expected) { '6461766500000000000000000000000000000000000000000000000000000000' }
+    specify { expect("bytes16").to encode_and_decode("dave").to(expected) }
+  end
+
   context "fixed" do
     specify { expect("fixed").to encode_and_decode(2.125).to("0000000000000000000000000000000220000000000000000000000000000000") }
     specify { expect("fixed").to encode_and_decode(8.5).to("0000000000000000000000000000000880000000000000000000000000000000") }
