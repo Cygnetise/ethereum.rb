@@ -1,5 +1,6 @@
 require "ethereum/version"
 require 'digest/sha3'
+require "dry/inflector"
 
 module Ethereum
   require 'ethereum/abi'

@@ -132,12 +132,12 @@ module Ethereum
     end
 
     (RPC_COMMANDS + RPC_MANAGEMENT_COMMANDS).each do |rpc_command|
-      method_name = rpc_command.underscore
+      inflector = Dry::Inflector.new
+      method_name = inflector.underscore(rpc_command)
       define_method method_name do |*args|
         send_command(rpc_command, args)
       end
     end
-
   end
 
 end

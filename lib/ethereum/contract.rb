@@ -235,7 +235,7 @@ module Ethereum
 
     def function_name(fun)
       count = functions.select {|x| x.name == fun.name }.count
-      name = (count == 1) ? "#{fun.name.underscore}" : "#{fun.name.underscore}__#{fun.inputs.collect {|x| x.type}.join("__")}"
+      name = (count == 1) ? "#{underscore(fun.name)}" : "#{underscore(fun.name)}__#{fun.inputs.collect {|x| x.type}.join("__")}"
       name.to_sym
     end
 
@@ -331,11 +331,15 @@ module Ethereum
         parent = self
         new_filter_proxy, get_filter_logs_proxy, get_filter_change_proxy = Class.new, Class.new, Class.new
         events.each do |evt|
-          new_filter_proxy.send(:define_method, evt.name.underscore) { |*args| parent.create_filter(evt, *args) }
-          get_filter_logs_proxy.send(:define_method, evt.name.underscore) { |*args| parent.get_filter_logs(evt, *args) }
-          get_filter_change_proxy.send(:define_method, evt.name.underscore) { |*args| parent.get_filter_changes(evt, *args) }
+          new_filter_proxy.send(:define_method, underscore(evt.name.underscore)) { |*args| parent.create_filter(evt, *args) }
+          get_filter_logs_proxy.send(:define_method, underscore(evt.name)) { |*args| parent.get_filter_logs(evt, *args) }
+          get_filter_change_proxy.send(:define_method, underscore(evt.name)) { |*args| parent.get_filter_changes(evt, *args) }
         end
         @new_filter_proxy, @get_filter_logs_proxy, @get_filter_change_proxy = new_filter_proxy.new, get_filter_logs_proxy.new, get_filter_change_proxy.new
+      end
+
+      def underscore(string)
+        @inflector.underscore(string)
       end
   end
 end

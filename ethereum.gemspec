@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "eth", "~> 0.4"
 
   spec.add_dependency "digest-sha3", "~> 1.1"
+  spec.add_dependency "dry-inflector", "~> 0.1"
 end
