@@ -2,8 +2,8 @@ module Ethereum
 
   class Transaction
 
-    DEFAULT_TIMEOUT = 300.seconds
-    DEFAULT_STEP = 5.seconds
+    DEFAULT_TIMEOUT = 300 # seconds
+    DEFAULT_STEP = 5 # seconds
 
     attr_accessor :id, :mined, :connection, :input, :input_parameters
 
