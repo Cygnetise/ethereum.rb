@@ -2,8 +2,8 @@ module Ethereum
 
   class Deployment
 
-    DEFAULT_TIMEOUT = 300 # seconds
-    DEFAULT_STEP = 5 # seconds
+    DEFAULT_TIMEOUT = 300.seconds
+    DEFAULT_STEP = 5.seconds
 
     attr_accessor :id, :contract_address, :connection, :deployed, :mined
     attr_reader :valid_deployment
