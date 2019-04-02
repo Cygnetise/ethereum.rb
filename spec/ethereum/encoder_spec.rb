@@ -55,11 +55,19 @@ describe Ethereum::Encoder do
   context "bytes32" do
     let (:expected) { '6461766500000000000000000000000000000000000000000000000000000000' }
     specify { expect("bytes32").to encode_and_decode("dave").to(expected) }
+    context "when special white space characters are included" do
+      let (:expected) { '200a090c64617665200000000000000000000000000000000000000000000000' }
+      specify { expect("bytes32").to encode_and_decode(" \n\t\fdave ").to(expected) }
+    end
   end
 
   context "bytes16" do
     let (:expected) { '6461766500000000000000000000000000000000000000000000000000000000' }
     specify { expect("bytes16").to encode_and_decode("dave").to(expected) }
+    context "when special white space characters are included" do
+      let (:expected) { '200a090c64617665200000000000000000000000000000000000000000000000' }
+      specify { expect("bytes32").to encode_and_decode(" \n\t\fdave ").to(expected) }
+    end
   end
 
   context "fixed" do
