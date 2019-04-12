@@ -57,7 +57,7 @@ module Ethereum
     end
 
     def decode_static_bytes(value, subtype = nil, start = 0)
-      trim(value, start, 32*8).scan(/.{2}/).collect {|x| x.hex}.pack('C*').gsub("\x00",'')
+      trim(value, start, 32*8).scan(/.{2}/).collect {|x| x.hex}.pack('C*')
     end
 
     def decode_dynamic_bytes(value, start = 0)
