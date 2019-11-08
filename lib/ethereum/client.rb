@@ -114,11 +114,7 @@ module Ethereum
 
     def send_command(command,args)
       if ["eth_getBalance", "eth_call"].include?(command)
-        if args[0].has_key?(:block_number)
-          args << args[0][:block_number]
-        else
-          args << "latest"
-        end
+        args << (args[0].delete(:block_number) || 'latest')
       end
 
       payload = {jsonrpc: "2.0", method: command, params: encode_params(args), id: get_id}

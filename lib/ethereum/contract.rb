@@ -165,12 +165,14 @@ module Ethereum
       "0x" + fun.signature + (@encoder.encode_arguments(fun.inputs, args).presence || "0"*64)
     end
 
-    def call_args(fun, args)
-      add_gas_options_args({to: @address, from: @sender, data: call_payload(fun, args)})
+    def call_args(fun, args, options={})
+      data = call_payload(fun, args)
+      add_gas_options_args({to: @address, from: @sender, data: data}).merge(options)
     end
 
     def call_raw(fun, *args)
-      raw_result = @client.eth_call(call_args(fun, args))["result"]
+      options = args.last.respond_to?(:key) ? args.pop : {}
+      raw_result = @client.eth_call(call_args(fun, args, options))["result"]
       output = @decoder.decode_arguments(fun.outputs, raw_result)
       return {data: call_payload(fun, args), raw: raw_result, formatted: output}
     end
